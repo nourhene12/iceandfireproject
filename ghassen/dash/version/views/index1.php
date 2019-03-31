@@ -1,5 +1,5 @@
 <?php
-include "action1.php";
+include "action.php";
 ?>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
@@ -11,6 +11,7 @@ include "action1.php";
     <meta charset="(UTF-8 | ISO-8859-1)">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Haythem kharbech</title>
+    <script type="jquery.js"></script>
     <meta name="description" content="ICE&FIRE - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -235,8 +236,8 @@ include "action1.php";
                             <div class="page-title">
                                 <ol class="breadcrumb text-right">
                                     <li><a href="#">Dashboard</a></li>
-                                    <li><a href="#">gerer vos catégories</a></li>
-                                    <li class="active">catégories</li>
+                                    <li><a href="#">gerer vos produits</a></li>
+                                    <li class="active">produits</li>
                                 </ol>
                             </div>
                         </div>
@@ -263,7 +264,6 @@ include "action1.php";
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-</head>
 <script type="text/javascript">
     $(function() {
         $("#ajouter").click(function(){
@@ -281,7 +281,12 @@ include "action1.php";
             else{
                $("#nom").css("border-color","#00FF00"); 
             }
-            if($("#id").val()=="")
+            if($("#type").val()=="")
+            {
+                $("#type").css("border-color","#FF0000");
+                valid=false;
+            }
+            else if(!$("#type").val().match(/^[a-z]+$/i))
             {
                 $("#type").css("border-color","#FF0000");
                 valid=false;
@@ -290,11 +295,25 @@ include "action1.php";
                $("#type").css("border-color","#00FF00"); 
             }
                 
+                if($("#prix").val()=="")
+            {
+                $("#prix").css("border-color","#FF0000");
+                valid=false;
+            }
+            else if(!$("#prix").val().match(/^[0-9]+$/i))
+            {
+                $("#prix").css("border-color","#FF0000");
+                valid=false;
+            }
+            else{
+               $("#prix").css("border-color","#00FF00");
+            }
         return valid;
         });
 
     });
 </script>
+</head>
 <body>
     <nav class="navbar navbar-expand-md bg-dark navbar-dark">
   <!-- Brand -->
@@ -306,19 +325,14 @@ include "action1.php";
   </button>
 
   <!-- Navbar links -->
-  <ul class="ml-auto">
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <form class="form-inline" action="/action_page.php">
-    
-  </form>
-  </div>
-  </ul>s
+  
 </nav>
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-10">
-         <h3 class="text-center text-dark mt-2">Vous pouvez gérer vos catégories ICI</h3> 
+         <h3 class="text-center text-dark mt-2">Vous pouvez gérer vos produits ICI</h3> 
          <hr>
+
      <?php if (isset($_SESSION['response'])) { ?>
      <div class="alert alert-<?= $_SESSION['res_type']; ?> alert-dismissible text-center">
   <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -331,22 +345,30 @@ include "action1.php";
     <div class="row">
 
         <div class="col-md-4">
-        <h3 class="text-center text-info">ajouter vos informations</h3>
+        <h3 class="text-center text-info">ajouter produit</h3>
         <hr>
-            <form action="action1.php" method="post" enctype="multipart/form-data">
-<input type="hidden" name="id1" value="<?= $id1;  ?>">
-            <div class="form-group">
+            <form action="action.php" method="post" enctype="multipart/form-data">
 
-                 <input type="text" name="id" id="id" value="<?= $id;  ?>" class="form-control" placeholder="Entrer l'identifiant" required>
-             </div>
-                 <div class="form-group">
+            <input type="hidden" name="id" value="<?= $id1;  ?>">
+            <div class="form-group">
                 <input type="text" name="name" id="nom" value="<?= $name;  ?>" class="form-control" placeholder="Entrer le nom" required>
             </div>
             <div class="form-group">
+                <input type="text" name="type" id="type" value="<?= $type;  ?>" class=" form-control" placeholder="Entrer le type" required>
+            </div>
+            <div class="form-group">
+                <input type="tel" name="prix" id="prix" value="<?= $prix;  ?>" class="form-control" placeholder="Entrer le prix" required>
+            </div>
+            <div class="form-group">
+            <input type="hidden" name="oldimage" value="<?= $photo; ?>" >
+                <input type="file" name="image" class="custom-file">
+            <img src="<?= $photo; ?>" width="120" class="img-thumbnail">
+            </div>
+            <div class="form-group">
             <?PHP if($update==true){ ?>
-                  <input type="submit" name="Modifier" class="btn btn-success btn-block mr-sm-2" value="modifier la catégorie">
+                  <input type="submit" name="Modifier" class="btn btn-success btn-block" value="modifier le produit">
         <?php } else{ ?>
-                <input type="submit" name="ajouter" id="ajouter" class="btn btn-primary btn-block " value="ajouter la catégorie">
+                <input type="submit" name="ajouter" class="btn btn-primary btn-block" value="ajouter le produit" id="ajouter">
           <?php } ?>
             </div>
             </form>
@@ -354,31 +376,37 @@ include "action1.php";
         <div class="col-md-8">
           <?php
       
-    $categoriesc1=new categoriec();
-$listecategories=$categoriesc1->affichercatégories();
+    $produitc1=new produitc();
+$listeproduits=$produitc1->afficherproduits();
 
       ?>
             <h3 class="text-center text-info">Vos informations</h3>
-            <table class="table  table-hover">
+            <div class="table-responsive" id="table-data">
+            <table class="table  table-hover" >
     <thead>
       <tr>
         <th>#</th>
+        <th>Image</th>
         <th>nom</th>
-       <th>Actions</th>
+         <th>type</th>
+          <th>prix</th>
+          <th>Actions</th>
       </tr>
     </thead>
     <tbody>
      <?php
-    foreach ($listecategories as $row){
+     foreach ($listeproduits as $row){
      ?>
       <tr>
         <td><?php echo $row['id']; ?></td>
+        <td><img src="<?php echo $row['photo']; ?>" width="40"></td>
         <td><?php echo $row['nom']; ?></td>
-        
+        <td><?php echo $row['type']; ?></td>
+        <td><?php echo $row['prix']; ?></td>
         <td>
-        <a href="details1.php?details=<?= $row['id']; ?>" class="badge badge-primary p-2">Details</a> |
-         <a href="action1.php?supprimer=<?= $row['id']; ?> " class="badge badge-danger p-2" onclick="return confirm('voulez vous supprimer cet article?');">Supprimer</a> |
-          <a href="index2.php?edit=<?= $row['id']; ?>" class="badge badge-success p-2">Modifier</a> |
+        <a href="details.php?details=<?= $row['id']; ?>" class="badge badge-primary p-2">Details</a> |
+         <a href="action.php?supprimer=<?= $row['id']; ?> " class="badge badge-danger p-2" onclick="return confirm('voulez vous supprimer cet article?');">Supprimer</a> |
+          <a href="index1.php?edit=<?= $row['id']; ?>" class="badge badge-success p-2">Modifier</a> |
           </td>
       </tr>
       <?php 
@@ -386,9 +414,11 @@ $listecategories=$categoriesc1->affichercatégories();
     ?>
     </tbody>
   </table>
+  </div>
         </div>
      </div>
    </div>
+
 </body>
 
     <!-- Scripts -->
