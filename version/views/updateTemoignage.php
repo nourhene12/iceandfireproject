@@ -135,7 +135,7 @@ ob_end_flush();
                                 <div class="slider-text-inner text-center">
                                     <div class="desc">
                                         <span class="icon"><i class="flaticon-cutlery"></i></span>
-                                        <h1>Déposez votre avis </h1>
+                                        <h1>DModifier votre avis</h1>
                                         <p><span><a href="#">Acceuil</a></span> <span>Qu'en-pensez-vous ?</span></p>
                                         <div class="desc2"></div>
                                     </div>

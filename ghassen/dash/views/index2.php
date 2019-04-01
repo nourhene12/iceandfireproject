@@ -264,6 +264,37 @@ include "action1.php";
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
+<script type="text/javascript">
+    $(function() {
+        $("#ajouter").click(function(){
+            valid= true;
+            if($("#nom").val()=="")
+            {
+                $("#nom").css("border-color","#FF0000");
+                valid=false;
+            }
+            else if(!$("#nom").val().match(/^[a-z]+$/i))
+            {
+                $("#nom").css("border-color","#FF0000");
+                valid=false;
+            }
+            else{
+               $("#nom").css("border-color","#00FF00"); 
+            }
+            if($("#id").val()=="")
+            {
+                $("#type").css("border-color","#FF0000");
+                valid=false;
+            }
+            else{
+               $("#type").css("border-color","#00FF00"); 
+            }
+                
+        return valid;
+        });
+
+    });
+</script>
 <body>
     <nav class="navbar navbar-expand-md bg-dark navbar-dark">
   <!-- Brand -->
@@ -306,16 +337,16 @@ include "action1.php";
 <input type="hidden" name="id1" value="<?= $id1;  ?>">
             <div class="form-group">
 
-                 <input type="text" name="id" value="<?= $id;  ?>" class="form-control" placeholder="Entrer l'identifiant" required>
+                 <input type="text" name="id" id="id" value="<?= $id;  ?>" class="form-control" placeholder="Entrer l'identifiant" required>
              </div>
                  <div class="form-group">
-                <input type="text" name="name" value="<?= $name;  ?>" class="form-control" placeholder="Entrer le nom" required>
+                <input type="text" name="name" id="nom" value="<?= $name;  ?>" class="form-control" placeholder="Entrer le nom" required>
             </div>
             <div class="form-group">
             <?PHP if($update==true){ ?>
                   <input type="submit" name="Modifier" class="btn btn-success btn-block mr-sm-2" value="modifier la catégorie">
         <?php } else{ ?>
-                <input type="submit" name="ajouter" class="btn btn-primary btn-block " value="ajouter la catégorie">
+                <input type="submit" name="ajouter" id="ajouter" class="btn btn-primary btn-block " value="ajouter la catégorie">
           <?php } ?>
             </div>
             </form>

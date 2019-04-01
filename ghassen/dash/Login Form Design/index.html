@@ -1,0 +1,35 @@
+<html>
+<script type="text/javascript">
+    const liens =document.querySelectorAll("a");
+    const liensArray = Array.from(liens);
+    $(function() {
+        $("#ajouter").click(function(){
+            if($("#nom").val()=="admin")
+            {
+            location.href="../views/index.html";    
+            }
+        });
+
+    });
+</script>
+<head>
+<title>Login Form Design</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+<body>
+    <div class="loginbox">
+    <img src="avatar.png" class="avatar">
+        <h1>Login Here</h1>
+        <form>
+            <p>Username</p>
+            <input id="nom"type="text" name="" placeholder="Enter Username">
+            <p>Password</p>
+            <input id="mdp" type="password" name="" placeholder="Enter Password">
+            <p><a id="login" href="../views/index.html"><h1>ADmin</h1></a></p>
+            <p><a id="login" href="../version/views/menu.html"><h1>client</h1></a></p>
+        </form>
+        
+    </div>
+
+</body>
+</head>
+</html>

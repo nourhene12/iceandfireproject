@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Nourhene mehdi
+ * User: mdallelahmed
  * Date: 20/03/2019
  * Time: 9:11 PM
  */
@@ -125,7 +125,7 @@ $this->db =$this ->db->connect();	}
         $name = $d->getName();
         $date = $d->getDate();
         $message = $d->getReclamationMessage();
-        $email = $d->getEmail();
+                $email = $d->getEmail();
 
         $phone = $d->getPhone();
 
@@ -135,7 +135,7 @@ $this->db =$this ->db->connect();	}
 		$q->bindValue(':name', $name);
         $q->bindValue(':date', $date);
         $q->bindValue(':message', $message);
-        $q->bindValue(':email', $email);
+                $q->bindValue(':email', $email);
         $q->bindValue(':phone', $phone);
         $q->bindValue(':time', $time);
 
@@ -167,7 +167,7 @@ $this->db =$this ->db->connect();	}
         $q = $this->db->prepare($sql);
         $name = $d->getName();
         $date = $d->getDate();
-        $message = $d->getReclamationMessage();
+        $message = $d->getTemoignageMessage();
          $email = $d->getEmail();
 
         $phone = $d->getPhone();
@@ -183,8 +183,7 @@ $this->db =$this ->db->connect();	}
 		
         try {            
 		    $q->execute();
-                header('Location: reclamation.php');
-
+			header('Location: api.php');
         } catch (Exception $e) {
             die('Erreur: ' . $e->getMessage());
         }
@@ -196,12 +195,25 @@ $this->db =$this ->db->connect();	}
         try {
             $res = $this->db->query($sql);
             echo "<table  class='table table-striped' >";
-            echo "<tr><th scope='col'>Id</th><th scope='col'>Name</th><th scope='col'>Date</th><th scope='col'>Message</th><th scope='col'>Email</th><th scope='col'>phone</th><<th scope='col'>Time</th><<th scope='col'>DELETE</th><th scope='col'>UPDATE</th></tr>";
+            echo "<tr><th scope='col'>Id</th><th scope='col'>Name</th><th scope='col'>Date</th><th scope='col'>Message</th><th scope='col'>Email</th><th scope='col'>Phone</th><<th scope='col'>Time</th><<th scope='col'>Supprimer</th><th scope='col'>SMS</th></tr>";
             foreach ($res as $row) {
-                 echo "<tr><td>" . $row['id'] . "</td><td>" . $row['name'] . "</td><td>" . $row['date'] . "</td><td>" . $row['message'] . "</td><td>" . $row['email'] . "</td><td>" . $row['phone'] . "</td><td>" . $row['time'] . "</td>"."<td><form method='post'><input type='text' value=".$row['id']." name='ref' hidden> <input type='submit' class='btn btn-primary btn-block' style='width:84%!important' value='supp' name='supprimer'></form></td>"."<td><a href='updateReclamation.php?p=" . $row['id'] . "'>Modifier</a></td>" . "</tr>";
+                 echo "<tr><td>" . $row['id'] . "</td><td>" . $row['name'] . "</td><td>" . $row['date'] . "</td><td>" . $row['message'] . "</td><td>" . $row['email'] . "</td><td>" . $row['phone'] . "</td><td>" . $row['time'] . "</td>"."<td><form method='post' action='#'><input type='text' value=".$row['id']." name='ref' hidden> <input type='submit' class='btn btn-primary btn-block' style='width:100%!important' value='supprmier' name='supprimer'></form></td>"."<td><a href='send_sms.php?p=" . $row['id'] . "'>Envoyer</a></td>" . "</tr>";
             }
             echo "</table>";
 
+        } catch (Exception $e) {
+            die('Erreur: ' . $e->getMessage());
+        }
+    }
+
+       public function afficheReclamationdash()
+    {
+        $sql = "select * from reclamation ";
+        try {
+            $res = $this->db->query($sql);
+            foreach ($res as $row) {
+                 echo "<tr><td>" . $row['name'] . "</td><td>" . $row['email'] . "</td><td>" . $row['phone'] . "</td></tr>";
+            }
         } catch (Exception $e) {
             die('Erreur: ' . $e->getMessage());
         }
@@ -213,10 +225,9 @@ $this->db =$this ->db->connect();	}
         $sql = "DELETE FROM `reclamation` WHERE `id`=" . $id;
         try {
             $this->db->exec($sql);
-            header('Location: reclamation.php');
         } catch (Exception $e) {
             die('Erreur: ' . $e->getMessage());
         }
+
     }
 }
-?>
