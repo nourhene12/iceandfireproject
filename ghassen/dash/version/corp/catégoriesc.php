@@ -133,5 +133,7 @@ function recherchecategories(){
         }
 }
 }
+?>
+}
 
 ?>

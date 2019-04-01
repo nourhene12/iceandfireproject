@@ -1,5 +1,26 @@
 <?php
-include "action1.php";
+/**
+ * Created by PhpStorm.
+ * User: Mehdi Nourhene
+ * Date: 24/03/2019
+ * Time: 10:18
+ */
+include_once "../entities/Rec.php";
+include_once "../Config.php";
+
+
+if (isset($_POST["valider"])) {
+    $nouveau_reclamation = new reclamation();
+    $nouveau_reclamation->setName($_POST['name']);
+    $nouveau_reclamation->setDate($_POST['date']);
+    $nouveau_reclamation->setReclamationMessage($_POST['reclamation_message']);
+        $nouveau_reclamation->setEmail($_POST['email']);
+    $nouveau_reclamation->setPhone($_POST['phone']);
+    $nouveau_reclamation->setTime($_POST['time']);
+
+    $nouveau_reclamation->insertReclamation($nouveau_reclamation);
+}
+
 ?>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
@@ -11,7 +32,7 @@ include "action1.php";
     <meta charset="(UTF-8 | ISO-8859-1)">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Haythem kharbech</title>
-    <meta name="description" content="ICE&FIRE - HTML5 Admin Template">
+    <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
@@ -235,8 +256,8 @@ include "action1.php";
                             <div class="page-title">
                                 <ol class="breadcrumb text-right">
                                     <li><a href="#">Dashboard</a></li>
-                                    <li><a href="#">gerer vos catégories</a></li>
-                                    <li class="active">catégories</li>
+                                    <li><a href="#">Contactez vos clients</a></li>
+                                    <li class="active">API</li>
                                 </ol>
                             </div>
                         </div>
@@ -246,181 +267,18 @@ include "action1.php";
         </div>
 
  
-     <head>
-    <meta charset="UTF-8">
-    <meta name="author" content="ghassen namouchi">
-    <meta http-equiv="X-UA-compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initiam-scale=1,shrink-to-fit=no">
-    <title>ICE&FIRE</title>
-    <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-</head>
-<script type="text/javascript">
-    $(function() {
-        $("#Modifier").click(function(){
-            valid= true;
-            if($("#nom").val()=="")
-            {
-                $("#nom").css("border-color","#FF0000");
-                valid=false;
-            }
-            else if(!$("#nom").val().match(/^[a-z]+$/i))
-            {
-                $("#nom").css("border-color","#FF0000");
-                valid=false;
-            }
-            else{
-               $("#nom").css("border-color","#00FF00"); 
-            }
-            if($("#id").val()=="")
-            {
-                $("#id").css("border-color","#FF0000");
-                valid=false;
-            }
-            else{
-               $("#id").css("border-color","#00FF00"); 
-            }
-                
-        return valid;
-        });
-
-    });
-</script>
-<script type="text/javascript">
-    $(function() {
-        $("#ajouter").click(function(){
-            valid= true;
-            if($("#nom").val()=="")
-            {
-                $("#nom").css("border-color","#FF0000");
-                valid=false;
-            }
-            else if(!$("#nom").val().match(/^[a-z]+$/i))
-            {
-                $("#nom").css("border-color","#FF0000");
-                valid=false;
-            }
-            else{
-               $("#nom").css("border-color","#00FF00"); 
-            }
-            if($("#id").val()=="")
-            {
-                $("#id").css("border-color","#FF0000");
-                valid=false;
-            }
-            else{
-               $("#id").css("border-color","#00FF00"); 
-            }
-                
-        return valid;
-        });
-
-    });
-</script>
-<body>
-    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-  <!-- Brand -->
-  <a class="navbar-brand" href="#">ICE&FIRE</a>
-
-  <!-- Toggler/collapsibe Button -->
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <!-- Navbar links -->
-  <ul class="ml-auto">
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <form class="form-inline" action="/action_page.php">
-    
-  </form>
-  </div>
-  </ul>s
-</nav>
-<div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-         <h3 class="text-center text-dark mt-2">Vous pouvez gérer vos catégories ICI</h3> 
-         <hr>
-     <?php if (isset($_SESSION['response'])) { ?>
-     <div class="alert alert-<?= $_SESSION['res_type']; ?> alert-dismissible text-center">
-  <button type="button" class="close" data-dismiss="alert">&times;</button>
-  <?= $_SESSION['response']; ?> 
-    </div>
-    <?php } unset($_SESSION['response']); ?>
+               <div class="col-lg-6">
+                                <strong class="card-title">Les réclamations</strong>
+                                  <p style="display: none;" id="affiche">
+        <?php
+        $d = new reclamation();
+        $d->afficheReclamation();
+        if(isset($_POST['supprimer'])){
+            $d->supprimeReclamation($_POST['ref']);
+        }
+        ?>
+    </p>
         </div>
-    </div>
-
-    <div class="row">
-
-        <div class="col-md-4">
-        <h3 class="text-center text-info">ajouter vos informations</h3>
-        <hr>
-            <form action="action1.php" method="post" enctype="multipart/form-data">
-<input type="hidden" name="id1" value="<?= $id1;  ?>">
-            <div class="form-group">
-
-                 <input type="text" name="id" id="id" value="<?= $id;  ?>" class="form-control" placeholder="Entrer l'identifiant" required>
-             </div>
-                 <div class="form-group">
-                <input type="text" name="name" id="nom" value="<?= $name;  ?>" class="form-control" placeholder="Entrer le nom" required>
-            </div>
-            <div class="form-group">
-            <?PHP if($update==true){ ?>
-                  <input type="submit" name="Modifier" id="Modifier" class="btn btn-success btn-block mr-sm-2" value="modifier la catégorie">
-        <?php } else{ ?>
-                <input type="submit" name="ajouter" id="ajouter" class="btn btn-primary btn-block " value="ajouter la catégorie">
-          <?php } ?>
-            </div>
-            </form>
-        </div>
-        <div class="col-md-8">
-          <?php
-      
-    $categoriesc1=new categoriec();
-$listecategories=$categoriesc1->affichercatégories();
-
-      ?>
-            <h3 class="text-center text-info">Vos informations</h3>
-            <table class="table  table-hover">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>nom</th>
-       <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-     <?php
-    foreach ($listecategories as $row){
-     ?>
-      <tr>
-        <td><?php echo $row['id']; ?></td>
-        <td><?php echo $row['nom']; ?></td>
-        
-        <td>
-        <a href="details1.php?details=<?= $row['id']; ?>" class="badge badge-primary p-2">Details</a> |
-         <a href="action1.php?supprimer=<?= $row['id']; ?> " class="badge badge-danger p-2" onclick="return confirm('voulez vous supprimer cet article?');">Supprimer</a> |
-          <a href="index2.php?edit=<?= $row['id']; ?>" class="badge badge-success p-2">Modifier</a> |
-          </td>
-      </tr>
-      <?php 
-    }
-    ?>
-    </tbody>
-  </table>
-        </div>
-     </div>
-   </div>
-</body>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>

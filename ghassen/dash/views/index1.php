@@ -266,6 +266,55 @@ include "action.php";
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script type="text/javascript">
     $(function() {
+        $("#Modifier").click(function(){
+            valid= true;
+            if($("#nom").val()=="")
+            {
+                $("#nom").css("border-color","#FF0000");
+                valid=false;
+            }
+            else if(!$("#nom").val().match(/^[a-z]+$/i))
+            {
+                $("#nom").css("border-color","#FF0000");
+                valid=false;
+            }
+            else{
+               $("#nom").css("border-color","#00FF00"); 
+            }
+            if($("#type").val()=="")
+            {
+                $("#type").css("border-color","#FF0000");
+                valid=false;
+            }
+            else if(!$("#type").val().match(/^[a-z]+$/i))
+            {
+                $("#type").css("border-color","#FF0000");
+                valid=false;
+            }
+            else{
+               $("#type").css("border-color","#00FF00"); 
+            }
+                
+                if($("#prix").val()=="")
+            {
+                $("#prix").css("border-color","#FF0000");
+                valid=false;
+            }
+            else if(!$("#prix").val().match(/^[0-9]+$/i))
+            {
+                $("#prix").css("border-color","#FF0000");
+                valid=false;
+            }
+            else{
+               $("#prix").css("border-color","#00FF00");
+            }
+        return valid;
+        });
+
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
         $("#ajouter").click(function(){
             valid= true;
             if($("#nom").val()=="")
@@ -366,7 +415,7 @@ include "action.php";
             </div>
             <div class="form-group">
             <?PHP if($update==true){ ?>
-                  <input type="submit" name="Modifier" class="btn btn-success btn-block" value="modifier le produit">
+                  <input type="submit" name="Modifier" class="btn btn-success btn-block" value="modifier le produit" id="Modifier">
         <?php } else{ ?>
                 <input type="submit" name="ajouter" class="btn btn-primary btn-block" value="ajouter le produit" id="ajouter">
           <?php } ?>

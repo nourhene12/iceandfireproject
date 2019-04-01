@@ -1,12 +1,11 @@
 <?php
-include '../entities/catégories.php';
+include '../entities/produits.php';
 include '../config.php';
-class categoriec
+class produitc
 {
-	
-	function affichercatégories(){
+	function afficherproduits(){
 		//$sql="SElECT * From employe e inner join formationphp.employe a on e.cin= a.cin";
-		$sql="SElECT * FROM categories";
+		$sql="SElECT * From produits";
 		$db = config::getConnexion();
 		try{
 		$liste=$db->query($sql);
@@ -16,16 +15,20 @@ class categoriec
             die('Erreur: '.$e->getMessage());
         }	
 	}
-	function ajoutercatégories($catégories){
-		$sql="insert into categories(id,nom) values (:id,:nom)";
+	function ajouterproduits($produits){
+		$sql="insert into produits(nom,type,prix,photo) values (:nom,:type,:prix,:photo)";
 		$db = config::getConnexion();
 		try{
         $req=$db->prepare($sql);//prépare la requete sql à etre exécuté par
 		
-        $nom=$catégories->getnom();
-$id=$catégories->getid();
+        $nom=$produits->getnom();
+        $type=$produits->gettype();
+        $prix=$produits->getprix();
+        $photo=$produits->getphoto();
 		$req->bindValue(':nom',$nom);//bind value associe une valeur à un parametre
-	    $req->bindValue(':id',$id);
+		$req->bindValue(':type',$type);
+		$req->bindValue(':prix',$prix);
+		$req->bindValue(':photo',$photo);
 		
             $req->execute();
            
@@ -35,7 +38,7 @@ $id=$catégories->getid();
         }
 		
 	}
-	function supprimercatégories()
+	function supprimerproduits()
 {
 	$conn = new mysqli("localhost","root","","ice&fire");
 	if($conn->connect_error){
@@ -45,16 +48,26 @@ if(isset($_GET['supprimer'])){
 
  	$id=$_GET['supprimer'];
 
- 	$sql="DELETE  FROM categories WHERE id=?";
+ 	$query="SELECT photo FROM produits WHERE id=?";
+ 	$stmt2=$conn->prepare($query);
+ 	$stmt2->bind_param("i",$id);
+ 	$stmt2->execute();
+ 	$result2=$stmt2->get_result();
+ 	$row=$result2->fetch_assoc();
+
+    $imagepath=$row['photo'];
+    unlink($imagepath);
+
+ 	$sql="DELETE  FROM produits WHERE id=?";
  	$stmt=$conn->prepare($sql);
  	$stmt->bind_param("i",$id);
  	$stmt->execute();
 
- 	header('location:index2.php');
+ 	header('location:index1.php');
 	$_SESSION['response']="la suppression c'est bien effectué!";
 	$_SESSION['res_type']="danger";}
  }
- function modifiercatégories($id)
+ function modifierproduits($id)
 {
 	$conn = new mysqli("localhost","root","","ice&fire");
 	if($conn->connect_error){
@@ -62,7 +75,7 @@ if(isset($_GET['supprimer'])){
   }
 
 
- 	$query="SELECT * FROM categories WHERE id=?";
+ 	$query="SELECT * FROM produits WHERE id=?";
  	$stmt=$conn->prepare($query);
  	$stmt->bind_param("i",$id);
  	$stmt->execute();
@@ -74,10 +87,10 @@ if(isset($_GET['supprimer'])){
  
 
 }
-function detailscatégories($id)
+function detailsproduits($id)
 {
 	$conn = new mysqli("localhost","root","","ice&fire");
-   $query="SELECT * FROM categories WHERE id=?";
+   $query="SELECT * FROM produits WHERE id=?";
   $stmt=$conn->prepare($query);
  	$stmt->bind_param("i",$id);
  	$stmt->execute();
@@ -88,50 +101,32 @@ return $row;
  
 
 }
-function modifiercatégories1($categories,$id)
+function modifierproduits1($name,$type,$prix,$photo,$id1)
 {
 	
 
-$sql="UPDATE categories SET id=:idd, nom=:nom WHERE id=:id";
-		
-		$db = config::getConnexion();
-		//$db->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
-try{		
-        $req=$db->prepare($sql);
-		$idd=$categories->getid();
-        $nom=$categories->getnom();
-		$datas = array(':idd'=>$idd, ':id'=>$id, ':nom'=>$nom);
-		$req->bindValue(':idd',$idd);
-		$req->bindValue(':id',$id);
-		$req->bindValue(':nom',$nom);
-		
-		
-		
-            $s=$req->execute();
-			
-           // header('Location: index.php');
-        }
-        catch (Exception $e){
-            echo " Erreur ! ".$e->getMessage();
-   echo " Les datas : " ;
-  print_r($datas);
-        }
+$conn = new mysqli("localhost","root","","ice&fire");
+ 	$query="UPDATE produits SET nom=?,type=?,prix=?,photo=? WHERE id=?";
+ 	$stmt=$conn->prepare($query);
+ 	$stmt->bind_param("ssssi",$name,$type,$prix,$photo,$id1);
+ 	$stmt->execute();
+
+ 	
  
 
 }
-function recherchecategories(){	
+function rechercheproduit(){	
 
   $db = config::getConnexion();
-        $sql = "select *from categories  ";
+        $sql = "select *from produits  ";
         try {
             $res = $db->query($sql);
             foreach ($res as $row) {
-                  echo'<tr><td>'. $row["id"] . '</td><td>' . $row["nom"] . '</td></tr>';
+                  echo'<tr><td>'. $row["id"] . '</td><td>' . $row["nom"] . '</td><td>' . $row["type"] . '</td><td>' . $row['prix'] . '</td><td>' . $row['photo'] . '</td></tr>';
             }
         } catch (Exception $e) {
             die('Erreur: ' . $e->getMessage());
         }
 }
 }
-
 ?>
