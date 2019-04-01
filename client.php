@@ -1,13 +1,15 @@
 <?php
 ob_start();
-include_once "../entities/commande.php";
+include_once "../entities/cli.php";
 include_once "Config.php";
-if (isset($_POST["valider"])) {
-    $nouveau_commande = new Commande();
-    $nouveau_commande->setid_client($_POST['id_client']);
-    $nouveau_commande->setfacture($_POST['facture']);
-	$nouveau_commande->insertCommande($nouveau_commande);
+/*if (isset($_POST["valider"])) {
+    $nouveau_client = new Client();
+    $nouveau_client->setNom($_POST['Nom']);0
+    $nouveau_client->setPwd($_POST['PWD']);
+    $nouveau_client->setPhoto($_POST['Photo']);
+	$nouveau_client->insertClient($nouveau_client);
 }
+*/
 ?>
 <!DOCTYPE html>
 <html>
@@ -52,6 +54,7 @@ if (isset($_POST["valider"])) {
 
     <!-- Modernizr JS -->
     <script src="js/modernizr-2.6.2.min.js"></script>
+    <script src="controlesaisie2.js"></script>
     <!-- FOR IE9 below -->
     <!--[if lt IE 9]>
     <script src="js/respond.min.js"></script>
@@ -81,8 +84,7 @@ if (isset($_POST["valider"])) {
                     <div class="col-md-12 text-center">
                         <ul>
                              <li><a href="index.php">Acceuil</a></li>
-                             <li><a href="client.php">S'inscrire</a></li>
-                            <li class="active"><a href="commande.php">commander</a></li>
+                            <li class="active"><a href="client.php">S'inscrire</a></li>
                             
 
 
@@ -118,8 +120,8 @@ if (isset($_POST["valider"])) {
                                 <div class="slider-text-inner text-center">
                                     <div class="desc">
                                         <span class="icon"><i class="flaticon-cutlery"></i></span>
-                                        <h1>Passer une commande</h1>
-                                        <p><span><a href="#">Acceuil</a></span> <span>COMMANDE</span></p>
+                                        <h1>INSCRIPTION</h1>
+                                        <p><span><a href="#">Acceuil</a></span> <span>INSCRIPTION</span></p>
                                         <div class="desc2"></div>
                                     </div>
                                 </div>
@@ -180,38 +182,74 @@ if (isset($_POST["valider"])) {
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3 text-center animate-box intro-heading">
-                        <h2>COMMANDE</h2>
-                        <p>JK</p>
+                        <h2>INSCRIPTION</h2>
+                       
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" class="colorlib-form">
+                                <form method="post" class="colorlib-form" name="myForm" action="client.php">
                                 <div class="row">
                                         <div class="col-md-6 animate-box">
                                             <div class="form-group">
-                                                <label for="id_client">id_client</label>
+                                                <label for="Nom">Nom</label>
                                                 <div class="form-field">
-                                                <input type="number" class="form-control" placeholder="id_client" name="id_client" >
+                                                <input type="text" class="form-control" id="name1" placeholder="name" name="Nom">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6 animate-box">
                                             <div class="form-group">
-                                                <label for="facture">facture</label>
+                                                <label for="Prenom">prenom</label>
                                                 <div class="form-field">
-                                                    <input type="number" class="form-control" placeholder="facture" name ="facture" onchange="validatetext(this)">
+                                                    <input type="text" id="prename1" class="form-control" placeholder="prenom" name ="Prenom" >
                                                     <div class="status2" id="status2" style="color: red; margin-left: 20px"></div>
                                                 </div>
                                             </div>
                                         </div>
-                                        
+                                        <div class="col-md-6 animate-box">
+                                            <div class="form-group">
+                                                <label for="CIN">CIN</label>
+                                                <div class="form-field">
+                                                    <input type="text" id="cin1" class="form-control" placeholder="Cin" name="CIN" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 animate-box">
+                                            <div class="form-group">
+                                                <label for="Tel">TEl</label>
+                                                <div class="form-field">
+                                                    <input type="text" id="tel1" class="form-control" placeholder="Tel" name="Tel" >
+                        
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 animate-box">
+                                            <div class="form-group">
+                                                <label for="mail">mail</label>
+                                                <div class="form-field">
+                                                    <input type="text" id="mail1" class="form-control" placeholder="mail" name="mail" >
+                        
+                                                </div>
+                                            </div>
+                                        </div>
+										<div class="col-md-6 animate-box">
+                                            <div class="form-group">
+                                                <label for="PWD">PWD</label>
+                                                <div class="form-field">
+                                                    <input type="password" id="pass1" class="form-control" placeholder="mdp" name="PWD" >
+                        
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                       
                                         <div class="col-md-12 animate-box">
                                             <div class="row">
                                                 <div class="col-md-4 col-md-offset-4">
-                                                    <input type="submit" name="valider" id="submit" value="confirmer" class="btn btn-primary btn-block" >
+                                                    <input type="submit" name="valider" id="submit" onclick=" return verifa2()" value="S'inscrire" class="btn btn-primary btn-block" >
                                                 </div>
                                             </div>
                                         </div>
@@ -274,14 +312,14 @@ if (isset($_POST["valider"])) {
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3 text-center animate-box intro-heading">
-                        <h2>AFFICHER LA COMMANDE </h2>
+                        <h2>AFFICHER CLIENT </h2>
                         </div>
 						  <p style="display: none;" id="affiche">
                         <?php
-                        $d = new Commande();
-                        $d->afficheCommande();
+                        $d = new Client();
+                        $d->afficheClient();
                         if(isset($_POST['supprimer'])){
-                            $d->supprimeCommande($_POST['ref']);
+                            $d->supprimeClient($_POST['ref']);
                         }
                         ?>
                        </p>
@@ -382,7 +420,9 @@ if (isset($_POST["valider"])) {
 
          phone.focus;
         }
-      
+        function validatetext(txt) {
+            txt.value = txt.value.replace(/[^a-zA-Z-éèêàâîïçÉÈÊÀÂÎÏÇ'\n\r.]+/g, '');
+        }
         function email_validate(email)
         {
             var regMail = /^([_a-zA-Z0-9-]+)(\.[_a-zA-Z0-9-]+)*@([a-zA-Z0-9-]+\.)+([a-zA-Z]{2,3})$/;

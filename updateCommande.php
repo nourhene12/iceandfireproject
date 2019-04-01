@@ -1,17 +1,35 @@
 <?php
 ob_start();
-include_once "../entities/commande.php";
-include_once "Config.php";
-if (isset($_POST["valider"])) {
-    $nouveau_commande = new Commande();
-    $nouveau_commande->setid_client($_POST['id_client']);
-    $nouveau_commande->setfacture($_POST['facture']);
-	$nouveau_commande->insertCommande($nouveau_commande);
+include '../entities/commande.php';
+/**
+ *  Affich Doc
+ */
+$ID=$_GET['p'];
+echo $ID;
+
+$commande=new commande();
+$res=$commande->selectCommande($ID);
+foreach($res as $row) {
+
+}
+/*
+ * Recupération des données soumis par l'utilsateur
+ */
+if(isset($_POST['modifier'])){
+    if(isset($_POST['modifier'])){
+    $nouveau_client = new Commande();
+    $nouveau_client->setid_client($_POST['id_client']);
+    $nouveau_client->setfacture($_POST['facture']);
+    
+    $nouveau_client->updateCommande($nouveau_commande,$ID);
+    }
 }
 ?>
-<!DOCTYPE html>
+
+<!DOCTYPE HTML>
 <html>
     <head>
+    <meta charset="utf-8">
   <!-- Facebook and Twitter integration -->
     <meta property="og:title" content=""/>
     <meta property="og:image" content=""/>
@@ -56,12 +74,7 @@ if (isset($_POST["valider"])) {
     <!--[if lt IE 9]>
     <script src="js/respond.min.js"></script>
     <![endif]-->
-<script>
-        function affiche() {
-            var a = document.getElementById("affiche");
-            a.style.display = "block";
-        }
-    </script>
+
     </head>
     <body>
 
@@ -80,12 +93,9 @@ if (isset($_POST["valider"])) {
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <ul>
-                             <li><a href="index.php">Acceuil</a></li>
-                             <li><a href="client.php">S'inscrire</a></li>
-                            <li class="active"><a href="commande.php">commander</a></li>
-                            
-
-
+                              <li><a href="index.php">Acceuil</a></li>
+                            <li><a href="client.php">S'inscrire</a></li>
+                            <li class="active"><a href="commande.php">Commander</a></li>
                             
                             
                     </div>
@@ -118,8 +128,8 @@ if (isset($_POST["valider"])) {
                                 <div class="slider-text-inner text-center">
                                     <div class="desc">
                                         <span class="icon"><i class="flaticon-cutlery"></i></span>
-                                        <h1>Passer une commande</h1>
-                                        <p><span><a href="#">Acceuil</a></span> <span>COMMANDE</span></p>
+                                        <h1>Commande </h1>
+                                        <p><span><a href="#">Acceuil</a></span> <span>Passer une commande</span></p>
                                         <div class="desc2"></div>
                                     </div>
                                 </div>
@@ -180,6 +190,14 @@ if (isset($_POST["valider"])) {
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3 text-center animate-box intro-heading">
+                        <h2>Passer La commande </h2>
+                        <p>Ne Vous Deplacez Plus , C'est La Nourriture Qui Se Deplace Pour Vous.</p>
+                    </div>
+                </div>
+                <div class="colorlib-reservation reservation-page">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3 text-center animate-box intro-heading">
                         <h2>COMMANDE</h2>
                         <p>JK</p>
                     </div>
@@ -194,7 +212,7 @@ if (isset($_POST["valider"])) {
                                             <div class="form-group">
                                                 <label for="id_client">id_client</label>
                                                 <div class="form-field">
-                                                <input type="number" class="form-control" placeholder="id_client" name="id_client" >
+                                                <input type="text" class="form-control" placeholder="id_client" name="id_client" onkeyup="validatetext(this)">
                                                 </div>
                                             </div>
                                         </div>
@@ -202,12 +220,13 @@ if (isset($_POST["valider"])) {
                                             <div class="form-group">
                                                 <label for="facture">facture</label>
                                                 <div class="form-field">
-                                                    <input type="number" class="form-control" placeholder="facture" name ="facture" onchange="validatetext(this)">
+                                                    <input type="text" class="form-control" placeholder="facture" name ="facture" onchange="validatetext(this)">
                                                     <div class="status2" id="status2" style="color: red; margin-left: 20px"></div>
                                                 </div>
                                             </div>
                                         </div>
                                         
+                                       
                                         <div class="col-md-12 animate-box">
                                             <div class="row">
                                                 <div class="col-md-4 col-md-offset-4">
@@ -223,93 +242,7 @@ if (isset($_POST["valider"])) {
                 </div>
             </div>
         </div>
-                 
 
-       <div class="colorlib-intro">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3 col-sm-6 text-center">
-                        <div class="intro animate-box">
-                            <span class="icon">
-                                <i class="icon-map4"></i>
-                            </span>
-                            <h2>Adresse</h2>
-                            <p>La corniche ,Bizerte (à côté du café Maalouf)</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 text-center">
-                        <div class="intro animate-box">
-                            <span class="icon">
-                                <i class="icon-clock4"></i>
-                            </span>
-                            <h2>Ouverte</h2>
-                            <p>Lundi - Dimanche</p>
-                            <span>14am - 00pm</span>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 text-center">
-                        <div class="intro animate-box">
-                            <span class="icon">
-                                <i class="icon-mobile2"></i>
-                            </span>
-                            <h2>Téléphone</h2>
-                            <p>+216 31 556 365</p>
-                            <p>+216 22 234 567</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 text-center">
-                        <div class="intro animate-box">
-                            <span class="icon">
-                                <i class="icon-envelope"></i>
-                            </span>
-                            <h2>Email</h2>
-                            <p><a href="#">info@domain.com</a><br><a href="#">iceandfire@email.com</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="colorlib-reservation reservation-page">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 col-md-offset-3 text-center animate-box intro-heading">
-                        <h2>AFFICHER LA COMMANDE </h2>
-                        </div>
-						  <p style="display: none;" id="affiche">
-                        <?php
-                        $d = new Commande();
-                        $d->afficheCommande();
-                        if(isset($_POST['supprimer'])){
-                            $d->supprimeCommande($_POST['ref']);
-                        }
-                        ?>
-                       </p>
-                </div>
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <form method="post" class="colorlib-form">
-                                <div class="row">
-
-                                       
-
-                                        <div class="col-md-12 animate-box">
-                                            <div class="row">
-                                                <div class="col-md-4 col-md-offset-4">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                            </form>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-   </body>
         <footer>
             <div id="footer">
                 <div class="container">
@@ -362,11 +295,11 @@ if (isset($_POST["valider"])) {
         </footer>
     
     </div>
+    
 
-
-
-<script >
-           function validatephone(phone)
+    <!-- jQuery -->
+    <script>
+    function validatephone(phone)
         {
             var maintainplus = '';
             var numval = phone.value
@@ -382,7 +315,9 @@ if (isset($_POST["valider"])) {
 
          phone.focus;
         }
-      
+        function validatetext(txt) {
+            txt.value = txt.value.replace(/[^a-zA-Z-éèêàâîïçÉÈÊÀÂÎÏÇ'\n\r.]+/g, '');
+        }
         function email_validate(email)
         {
             var regMail = /^([_a-zA-Z0-9-]+)(\.[_a-zA-Z0-9-]+)*@([a-zA-Z0-9-]+\.)+([a-zA-Z]{2,3})$/;
@@ -394,9 +329,7 @@ if (isset($_POST["valider"])) {
                 document.getElementById("status2").innerHTML    = "";
             }
         }
-    
     </script>
-    <!-- jQuery -->
     <script src="js/jquery.min.js"></script>
     <!-- jQuery Easing -->
     <script src="js/jquery.easing.1.3.js"></script>
@@ -418,8 +351,8 @@ if (isset($_POST["valider"])) {
 
     <!-- Main JS (Do not remove) -->
     <script src="js/main.js"></script>
-    <!---création d'un bloc avec JS pour afficher la liste des livres si l'utilisateur clique "afficher"---->
 
+    </body>
 </html>
 ob_end_flush();
 ?>

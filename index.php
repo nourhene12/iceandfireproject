@@ -73,8 +73,8 @@
 					<div class="col-md-12 text-center">
 						<ul>
 							<li class="active"><a href="index.php">Acceuil</a></li>
-						    <li><a href="panier.html">Panier</a></li>
-						    <li><a href="maps/maps-gmap.html">Ou Nous Trouver</a></li>
+                            <li><a href="client.php">S'inscrire</a></li>
+                            <li><a href="commande.php">Commander</a></li>
 						                                                       
 					</div>
 				</div>
