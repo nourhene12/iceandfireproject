@@ -1,5 +1,5 @@
 <?php
-include "action.php";
+include "action2.php";
 ?>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
@@ -73,42 +73,30 @@ include "action.php";
 
 <body>
 
- <!-- Left Panel -->
+     <!-- Left Panel -->
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="index.html"><i class="menu-icon fa fa-laptop"></i>GERER LIVREURS </a>
+                        <a href="index.html"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
                     
                     <li class="menu-item-has-children dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-check"></i>GESTION LIVREURS</a>
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-check"></i>GESTION  LIVREURS</a>
                                               <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-envelope"></i><a href="index1.php">LIVREURS</a></li>
+                            <li><i class="menu-icon fa fa-envelope"></i><a href="index2.php">LIVREURS</a></li>
                         </ul>
                         
                            
                         
-                    </li>
-					<li class="active">
-                        <a href="index.html"><i class="menu-icon fa fa-laptop"></i>GERER LES OFFRES </a>
-                    </li>
-					<li class="menu-item-has-children dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-check"></i>GESTION OFFRES</a>
-                                              <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-envelope"></i><a href="index2.php">OFFRES </a></li>
-                        </ul>
-                        
-                           
-                        
-                    </li>
+                   
                       <li class="menu-title">RECHERCHER</li><!-- /.menu-title -->
                     <li class="menu-item-has-children active dropdown">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-circle-o"></i>Tables</a>
                       <ul class="sub-menu children dropdown-menu">
-<li><i class="menu-icon fa fa-search"></i><a href="tablerechercheproduits.php">Table recherche livreur</a></li>                      
-<li><i class="menu-icon fa fa-search"></i><a href="tablerechercheoffre.php">Table recherche offre</a></li>                      </ul>
+<li><i class="menu-icon fa fa-search"></i><a href="tablerechercheproduits.php">Table recherche livreur</a></li>                   
+                  </ul>    
                     </li>
                     
                 </ul>
@@ -144,7 +132,7 @@ include "action.php";
                                 <span class="count bg-danger">3</span>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
-                                <p class="red">Vous avez 3 Notification</p>
+                                <p class="red">Vous avez 3 Notifications</p>
                                 <a class="dropdown-item media" href="#">
                                     <i class="fa fa-check"></i>
                                     <p>Consulter votre liste.</p>
@@ -223,29 +211,7 @@ include "action.php";
                  
            </header>
         
-        <div class="breadcrumbs">
-            <div class="breadcrumbs-inner">
-                <div class="row m-0">
-                    <div class="col-sm-4">
-                        <div class="page-header float-left">
-                            <div class="page-title">
-                                <h1>GESTION DES LIVREURS</h1>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="page-header float-right">
-                            <div class="page-title">
-                                <ol class="breadcrumb text-right">
-                                    <li><a href="#">GERER LES LIVREURS</a></li>
-                                    <li class="active">LIVREURS</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+            
 
  
      <head>
@@ -328,98 +294,9 @@ include "action.php";
   <!-- Navbar links -->
   
 </nav>
-<div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-         <h3 class="text-center text-dark mt-2">Vous pouvez gérer vos LIVREURS ICI</h3> 
-         <hr>
 
-     <?php if (isset($_SESSION['response'])) { ?>
-     <div class="alert alert-<?= $_SESSION['res_type']; ?> alert-dismissible text-center">
-  <button type="button" class="close" data-dismiss="alert">&times;</button>
-  <?= $_SESSION['response']; ?> 
-    </div>
-    <?php } unset($_SESSION['response']); ?>
-        </div>
-    </div>
 
-    <div class="row">
 
-        <div class="col-md-4">
-        <h3 class="text-center text-info">AJOUTER LIVREUR</h3>
-        <hr>
-            <form action="action.php" method="post" enctype="multipart/form-data">
-
-            <input type="hidden" name="id" value="<?= $id1;  ?>">
-            <div class="form-group">
-                <input type="text" name="nom" id="nom" value="<?= $nom;  ?>" class="form-control" placeholder="Entrer le nom" required>
-            </div>
-            <div class="form-group">
-                <input type="text" name="prenom" id="prenom" value="<?= $prenom;  ?>" class=" form-control" placeholder="Entrer le prenom" required>
-            </div>
-            <div class="form-group">
-                <input type="text" name="cin" id="cin" value="<?= $cin;  ?>" class="form-control" placeholder="Entrer le cin" required>
-            </div>
-            <div class="form-group">
-                <input type="text" name="numero" id="numero" value="<?= $numero;  ?>" class="form-control" placeholder="Entrer le numero" required>
-            </div>
-            <div class="form-group">
-            <?PHP if($update==true){ ?>
-                  <input type="submit" name="Modifier" class="btn btn-success btn-block" value="modifier le livreur">
-        <?php } else{ ?>
-                <input type="submit" name="ajouter" class="btn btn-primary btn-block" value="ajouter le livreur" id="ajouter">
-          <?php } ?>
-            </div>
-            </form>
-        </div>
-        <div class="col-md-8">
-          <?php
-      
-    $livreurc1=new livreurc();
-$listelivreur=$livreurc1->afficherlivreur();
-
-      ?>
-      <div id="printDiv"> </div>
-                                 <button id="doPrint">Print</button>
-            <h3 class="text-center text-info">Vos informations</h3>
-            <div class="table-responsive" id="table-data">
-            
-            <table class="table  table-hover" >
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>NOM</th>
-        <th>PRENOM</th>
-         <th>CIN</th>
-          <th>NUMERO</th>
-      </tr>
-    </thead>
-    <tbody>
-     <?php
-     foreach ($listelivreur as $row){
-     ?>
-      <tr>
-        <td><?php echo $row['id']; ?></td>
-        <td><?php echo $row['nom']; ?></td>
-        <td><?php echo $row['prenom']; ?></td>
-        <td><?php echo $row['cin']; ?></td>
-        <td><?php echo $row['numero']; ?></td>
-        <td>
-          <a href="action.php?supprimer=<?= $row['id']; ?> " class="badge badge-danger p-2" onclick="return confirm('voulez vous supprimer ce livreur?');">Supprimer</a> |
-          <a href="index1.php?edit=<?= $row['id']; ?>" class="badge badge-success p-2">Modifier</a> |
-          </td>
-      </tr>
-      <?php 
-    }
-    ?>
-    </tbody>
-  </table>
-  </div>
-        </div>
-     </div>
-   </div>
-
-</body>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
@@ -637,15 +514,6 @@ $listelivreur=$livreurc1->afficherlivreur();
             });
             // Bar Chart #flotBarChart End
         });
-    </script>
-    <script>
-        document.getElementById("doPrint").addEventListener("click", function() {
-     var printContents = document.getElementById('printDiv').innerHTML;
-     var originalContents = document.body.innerHTML;
-     document.body.innerHTML = printContents;
-     window.print();
-     document.body.innerHTML = originalContents;
-});
     </script>
 </body>
 </html>

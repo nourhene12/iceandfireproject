@@ -1,59 +1,46 @@
 <?php 
 session_start();
- include "../corp/produitc.php";
+ include "../core/livreurc.php";
  $update=false;
  	$id1="";
-    $name="";
-    $type="";
-    $prix="";
-    $photo="";
+    $nom="";
+    $prenom="";
+    $cin="";
+    $numero="";
  if(isset($_POST['ajouter'])){
- 	$name=$_POST['name'];
- 	$type=$_POST['type'];
- 	$prix=$_POST['prix'];
- 	$photo=$_FILES['image']['name'];
- 	$upload="uploads/".$photo;
- 	$produits1=new produits($name,$type,$prix,$upload);
- 	$produits1c=new produitc;
- 	$produits1c->ajouterproduits($produits1);
-	move_uploaded_file($_FILES['image']['tmp_name'],$upload);
+ 	$nom=$_POST['nom'];
+ 	$prenom=$_POST['prenom'];
+ 	$cin=$_POST['cin'];
+ 	$numero=$_POST['numero'];
+ 	$livreur1=new livreur($nom,$prenom,$cin,$numero);
+ 	$livreur1c=new livreurc;
+ 	$livreur1c->ajouterlivreur($livreur1);
 	header('location:index1.php');
 	$_SESSION['response']="l'ajout c'est bien effectué!";
 	$_SESSION['res_type']="success";
  }
- $produits2c=new produitc;
- 	$produits2c->supprimerproduits();
+ $livreur2c=new livreurc;
+ 	$livreur2c->supprimerlivreur();
  if(isset($_GET['edit'])){
 
  	$id=$_GET['edit'];
- 	$produits0c=new produitc;
- 	$row1=$produits0c->modifierproduits($id);
+ 	$livreur0c=new livreurc;
+ 	$row1=$livreur0c->modifierlivreur($id);
  	$id1=$row1['id'];
-    $name=$row1['nom'];
-    $type=$row1['type'];
-    $prix=$row1['prix'];
-    $photo=$row1['photo'];
+    $nom=$row1['nom'];
+    $prenom=$row1['prenom'];
+    $cin=$row1['cin'];
+    $numero=$row1['numero'];
     $update=true;
 }
 if(isset($_POST['Modifier'])){
     $id1=$_POST['id'];	
-    $name=$_POST['name'];
- 	$type=$_POST['type'];
- 	$prix=$_POST['prix'];
- 	$oldimage=$_POST['oldimage'];
- 	$newimage=$_FILES['image']['name'];
- 	if(isset($_FILES['image']['name'])&&($_FILES['image']['name']!=""))
- 	{
- 	$newimage="uploads/".$_FILES['image']['name'];	
- 	unlink($oldimage);
- 	move_uploaded_file($_FILES['image']['tmp_name'], $newimage);
-
- 	}
- 	else{
- 		$newimage=$oldimage;
- 	}
- 	$produits3c=new produitc;
- 	$produits3c->modifierproduits1($name,$type,$prix,$newimage,$id1);
+    $nom=$_POST['nom'];
+ 	$prenom=$_POST['prenom'];
+ 	$cin=$_POST['cin'];
+ 	$numero=$_POST['numero'];
+ 	$livreur3c=new livreurc;
+ 	$livreur3c->modifierlivreur1($nom,$prenom,$cin,$numero,$id1);
 $_SESSION['response']="la modification c'est bien effectué!";
   $_SESSION['res_type']="primary";
   header('location:index1.php');
@@ -62,13 +49,13 @@ $_SESSION['response']="la modification c'est bien effectué!";
  if(isset($_GET['details']))
  {
    $id=$_GET['details'];
-    $produits0c=new produitc;
-  $row=$produits0c->detailsproduits($id);
+    $livreur=new livreurc;
+  $row=$livreur0c->detailslivreur($id);
  	$vid=$row['id'];
- 	$vname=$row['nom'];
- 	$vtype=$row['type'];
- 	$vprix=$row['prix'];
- 	$vphoto=$row['photo'];
+ 	$vnom=$row['nom'];
+ 	$vprenom=$row['prenom'];
+ 	$vcin=$row['cin'];
+ 	$vnumero=$row['numero'];
  }
 
 ?>

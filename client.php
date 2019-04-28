@@ -1,6 +1,11 @@
 <?PHP
-include "../config.php";
+include "../../Config.php";
 class ClientC {
+
+		public function __construct(){
+$this->db = new Config();
+$this->db =$this ->db->connect();		}
+
 function afficherClient ($Client){
         echo "ID: ".$Client->getID()."<br>";
 	    echo "Nom: ".$Client->getNom()."<br>";
@@ -15,42 +20,40 @@ function afficherClient ($Client){
 	
 
 	function ajouterClient($Client){
-		$sql="insert into Client (ID,Nom,Prenom,CIN,Tel,mail,PWD,Photo) values (:ID,:Nom,:Prenom,:CIN,:Tel,:mail,:PWD,:Photo)";
-		$db = config::getConnexion();
-		try{
+		$sql="INSERT into Client (Nom,Prenom,CIN,Tel,mail,PWD) values (:Nom,:Prenom,:CIN,:Tel,:mail,:PWD)";
+		$db=config::connect();
         $req=$db->prepare($sql);
-		
-        $ID=$Client->getID();
         $Nom=$Client->getNom();
         $Prenom=$Client->getPrenom();
         $CIN=$Client->getCIN();
         $Tel=$Client->getTel();
         $mail=$Client->getmail();
         $PWD=$Client->getPWD();
-        $Photo=$Client->getPhoto();
+        
        
-        $req->bindValue(':ID',$ID);
         $req->bindValue(':Nom',$Nom);
 		$req->bindValue(':Prenom',$Prenom);
 		$req->bindValue(':CIN',$CIN);
 		$req->bindValue(':Tel',$Tel);
 		$req->bindValue(':mail',$mail);
 		$req->bindValue(':PWD',$PWD);
-		$req->bindValue(':Photo',$Photo);
 		
-            $req->execute();
            
+           
+        
+         try {
+		$req->execute();
+			} catch (Exception $e) {
+            die('Erreur: ' . $e->getMessage());
         }
-        catch (Exception $e){
-            echo 'Erreur: '.$e->getMessage();
-        }
+     
 		
 	}
 	
 	function afficherClients(){
 		//$sql="SElECT * From Client e inner join formationphp.Client a on e.CIN= a.CIN";
 		$sql="SElECT * From Client";
-		$db = config::getConnexion();
+		$db= config::connect();
 		try{
 		$liste=$db->query($sql);
 		return $liste;
@@ -59,9 +62,18 @@ function afficherClient ($Client){
             die('Erreur: '.$e->getMessage());
         }	
 	}
+	function rechercherClient($s)
+    {
+         $query = "select * from Client where ID LIKE ?";
+         $db= config::connect();
+         $result =$db->prepare($query);
+         $result->bindValue(1, "%$s%", PDO::PARAM_STR);
+         $result->execute();
+           return $result->fetchAll();
+    }
 	function supprimerClient($ID){
 		$sql="DELETE FROM Client where ID= :ID";
-		$db = config::getConnexion();
+		$db= config::connect();
         $req=$db->prepare($sql);
 		$req->bindValue(':ID',$ID);
 		try{
@@ -75,9 +87,9 @@ function afficherClient ($Client){
 	function modifierClient($Client,$ID){
 		$sql="UPDATE Client SET ID=:IDD,Nom=:Nom,Prenom=:Prenom,CIN=:CIN,Tel=:Tel,mail=:mail,PWD=:PWD,Photo=:Photo, WHERE ID=:ID";
 		
-		$db = config::getConnexion();
 		//$db->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
 try{		
+	$db= config::connect();
         $req=$db->prepare($sql);
 		$IDD=$Client->getID();
         $Nom=$Client->getNom();
@@ -114,8 +126,8 @@ try{
 		
 	}
 	function recupererClient($ID){
+		$db= config::connect();
 		$sql="SELECT * from Client where ID=$ID";
-		$db = config::getConnexion();
 		try{
 		$liste=$db->query($sql);
 		return $liste;

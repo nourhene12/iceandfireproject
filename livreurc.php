@@ -1,23 +1,25 @@
 <?php
 include '../entities/livreur.php';
-include '../config.php';
+include '../../Config.php';
 class livreurc
 {
 	function afficherlivreur(){
 		//$sql="SElECT * From employe e inner join formationphp.employe a on e.cin= a.cin";
 		$sql="SElECT * From livreur";
-		$db = config::getConnexion();
+		$db = config::connect();
 		try{
+
 		$liste=$db->query($sql);
 		return $liste;
 		}
         catch (Exception $e){
             die('Erreur: '.$e->getMessage());
         }	
+       
 	}
 	function ajouterlivreur($livreur){
 		$sql="insert into livreur(nom,prenom,cin,numero) values (:nom,:prenom,:cin,:numero)";
-		$db = config::getConnexion();
+		$db = config::connect();
 		try{
         $req=$db->prepare($sql);//prépare la requete sql à etre exécuté par
 		
@@ -68,9 +70,9 @@ if(isset($_GET['supprimer'])){
   }
 
 
- 	$query="SELECT * FROM livreur WHERE id=?";
+ 	$query="SELECT * FROM livreur WHERE id=:i";
  	$stmt=$conn->prepare($query);
- 	$stmt->bind_param("i",$id);
+ 	$stmt->bindValue(":i",$id);
  	$stmt->execute();
  	$result=$stmt->get_result();
  	$row=$result->fetch_assoc();
@@ -110,7 +112,7 @@ $conn = new mysqli("localhost","root","","iceandfiredb");
 }
 function recherchelivreur(){	
 
-  $db = config::getConnexion();
+  $db = config::connect();
         $sql = "select *from livreur  ";
         try {
             $res = $db->query($sql);

@@ -6,8 +6,21 @@ class livreurc
 	function afficherlivreur(){
 		//$sql="SElECT * From employe e inner join formationphp.employe a on e.cin= a.cin";
 		$sql="SElECT * From livreur";
-		$db = config::getConnexion();
+		$db = config::connect();
 		try{
+
+		$liste=$db->query($sql);
+		return $liste;
+		}
+        catch (Exception $e){
+            die('Erreur: '.$e->getMessage());
+        }	
+        function trierlivreur(){
+		//$sql="SElECT * From employe e inner join formationphp.employe a on e.cin= a.cin";
+		$sql = "select * from livreur order by id desc";
+		$db = config::connect();
+		try{
+
 		$liste=$db->query($sql);
 		return $liste;
 		}
@@ -17,7 +30,7 @@ class livreurc
 	}
 	function ajouterlivreur($livreur){
 		$sql="insert into livreur(nom,prenom,cin,numero) values (:nom,:prenom,:cin,:numero)";
-		$db = config::getConnexion();
+		$db = config::connect();
 		try{
         $req=$db->prepare($sql);//prépare la requete sql à etre exécuté par
 		
@@ -110,7 +123,7 @@ $conn = new mysqli("localhost","root","","iceandfiredb");
 }
 function recherchelivreur(){	
 
-  $db = config::getConnexion();
+  $db = config::connect();
         $sql = "select *from livreur  ";
         try {
             $res = $db->query($sql);
