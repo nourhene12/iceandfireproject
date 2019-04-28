@@ -13,6 +13,71 @@ $listeReservations=$resev->afficherReservations();
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
 <head>
+    <style>
+* {
+  box-sizing: border-box;
+}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+</style>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>ICE & Fire Admin Template</title>
@@ -254,83 +319,66 @@ $listeReservations=$resev->afficherReservations();
                     <div class="col-md-12">
                         <div class="card" style="margin-left: 76px;">
                             <div class="card-header">
-                                <strong class="card-title"> Les réservations ..</strong>
+                                <strong class="card-title"> SENDING Mail ..</strong>
                             </div>
-                            <form method="POST" action="afficherReservationtrie.php" style="    border: 0px solid #f1f1f1;"> 
- <button type="submit" name="trie"  style="    margin-left: 25px; 
-    margin-top: 91px; background-color:#e7e7e7; color: black; border-radius: 12px; padding: 10px 24px;     width: 120px;" >Trier</button>
- </form>
-         
-         <form  method="POST" style="        margin-left: 143px;margin-bottom: 2px;     border: 0px solid #f1f1f1;" >
-                     <input type="text" placeholder=" Date" name="choix"  style="    width: 250px;
-    margin-left: 301px;" />
-     <button type="submit" name="rechercher" class="buttonblack" style="    font-size: 12px;padding: 10px 24px;border-radius: 8px;background-color: #4CAF50;width: 113px;" >Rechercher</button> 
-                             </form>
-                               <?php
-                                if (isset($_POST["rechercher"]) && isset($_POST["choix"]) ){
-                        
-                               $listeReservations=$resev->rechercherReservation($_POST["choix"]);
-                                }
-                                                                                    
-                               ?>
-                                <td>
-
-                            <div class="card-body">
+                <div class="card-body">
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                                                         
-                                <div id="bootstrap-data-table_filter" class="table table-striped table-bordered">
-                                    <label>Search:
-                                        <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="bootstrap-data-table">
-                                    </label>
-                                </div>
-                                <tr>
-                                <td>nom</td>
-                                <td>prenom</td>
-                                <td>date</td>
-                                <td>description</td>
-                                <td>email</td>
-                                <td>time</td>
-                                <td>Phone</td>
-                                <td>supprimer</td>
-                                <td>Envoyer un email</td>
-                                </tr>
-                                <tbody>
-                                     <p style="display: none;" id="affiche">
-                                        <?php
-                                        $d = new Reservation();
-                                        $d->afficherReservations();
-                                        ?>
-                                    </p>
-                                                                          </tbody>
+                               
+   
+   
+        <form method="post" action="">
+        <div class="container">
+              <form action="email.php">
+              <div class="row">
+                <div class="col-25">
+                  <label for="fname">Mail From</label>
+                </div>
+                <div class="col-75">
+                  <input type="email" id="fname" name="mailFrom" placeholder="Mail From..">
+                </div>
+              </div> 
+               <div class="row">
+                    <div class="col-25">
+                      <label for="lname">Mail TO</label>
+                    </div>
+                    <div class="col-75">
+                      <input type="text" id="lname" name="mailto" placeholder="Mail To..">
+                    </div>
+                  </div>
+                     <div class="row">
+                        <div class="col-25">
+                          <label for="lname">Subject</label>
+                        </div>
+                        <div class="col-75">
+                          <input type="text" id="lname" name="mailSub" placeholder="Your Subject..">
+                        </div>
+                      </div>
 
-                                <?php
-                                foreach ($listeReservations as $row)
-                                {
-                                    ?>
-                                    <tr>
-                                    <td><?PHP echo $row['nom']; ?></td>
-                                    <td><?PHP echo $row['prenom']; ?></td>
-                                        <td><?PHP echo $row['date']; ?></td>
-                                    <td><?PHP echo $row['description']; ?></td>
-                                    <td><?PHP echo $row['email']; ?></td>
-                                    <td><?PHP echo $row['time']; ?></td>
-                                    <td><?PHP echo $row['phone']; ?></td>
 
-                                    
-                                    <td><form method="POST" action="supprimerReservation.php">
-                                   <button type="submit" name="supprimer" class="buttonblack" style="background-color: #555555; border-radius: 12px; padding: 10px 24px;     width: 120px;  ">Supprimer</button>
-                                    <input type="hidden" value="<?PHP echo $row['id']; ?>" name="id">
-                                    </form>
-                                    </td>
-                                    <td><form method="POST" action="email.php">
+                        <div class="row">
+                            <div class="col-25">
+                              <label for="subject">Message </label>
+                            </div>
+                            <div class="col-75">
+                              <textarea id="subject" name="mailMsg" placeholder="Write something.." style="height:200px"></textarea>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <input type="submit" value="Envoyer">
+                          </div>
+                          </form>
+                        
 
-                                    	<button  type="submit" name="mail" class="buttonblack" style="background-color: #555555; border-radius: 12px; padding: 10px 24px;     width: 128px;  ">Envoyer un email </button> 
-                                    </form>
-                                    </td>
-                                    </tr>
-                                    <?PHP
-                                }
-                                ?>
+
+        <?PHP
+        if(isset($_POST) && !empty($_POST['mailto']) && !empty($_POST['mailSub']) && !empty($_POST['mailMsg']) && !empty($_POST['mailFrom']))
+        {extract($_POST);
+            $mail=mail($mailto,$mailSub,$mailMsg,$mailFrom);
+            if($mail) echo'Email envoyé avec succés!!';else echo"echec d'envoi";
+    }else echo " formulaire non soumis ou champs vides";
+        ?>
+
                             </table>
                         </div>
                                 </table>
@@ -344,58 +392,8 @@ $listeReservations=$resev->afficherReservations();
                 </div>
             </div><!-- .animated -->
         </div><!-- .content -->
- <?php
- $db = mysqli_connect('localhost','root','','iceandfiredb');
-?>
-<!DOCTYPE HTML>
-<html>
-<head>
- <meta charset="utf-8">
- 
- <script type="text/javascript" src="https://www.google.com/jsapi"></script>
- <script type="text/javascript">
- google.load("visualization", "1", {packages:["corechart"]});
- google.setOnLoadCallback(drawChart);
- function drawChart() {
+ </div>
 
- var data = google.visualization.arrayToDataTable([
- ['action', 'nombre'],
-
- 
-
- 
- <?php 
-$query =" select (SELECT COUNT(*) FROM reservation) as count, 
-       (SELECT COUNT(*) FROM evenements) as count2 ";
-
- $exec = mysqli_query($db,$query);
- while($row = mysqli_fetch_array($exec)){
-  
- echo "['Réservation',".$row['count']."],";
- echo "['Evenements',".$row['count2']."],";
- }
- ?>
- ]);
-
-
- var options = {
-    
- title: 'Statistiques : Gestion des reservation & evenements' ,
- color: ['#489B77','#E25539'],
- };
-
-
- var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
- chart.draw(data, options);
- }
- </script>
-</head>
-<body>
- <h3 style="margin-left: 297px;">Statistiques : Gestion des reservation & evenements </h3>
- <div id="piechart" style="width: 900px; height: 500px; margin-left: 269px;"></div>
-</body>
-</html>
         <!-- /.content -->
         <div class="clearfix"></div>
         <!-- Footer -->

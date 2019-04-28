@@ -233,11 +233,6 @@ $listeReservations=$reservC->afficherReservations();
             </div>
         </div>
        <td>
-                   <form  method="POST" action="afficherReservationtrie.php" style="background-color: white">
-                                        <input type="submit" name="Trie" value="Trier" style="    margin-left: 143px;
-   margin-top: -30px;" >
-                                        </form>
-       
         <div class="content">
             <div class="animated fadeIn">
                 <div class="row" style="    margin-left: 26px;
