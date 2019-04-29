@@ -266,6 +266,7 @@ include "action1.php";
 </head>
 <script type="text/javascript">
     $(function() {
+<<<<<<< HEAD
         $("#Modifier").click(function(){
             valid= true;
             if($("#nom").val()=="")
@@ -297,6 +298,8 @@ include "action1.php";
 </script>
 <script type="text/javascript">
     $(function() {
+=======
+>>>>>>> feb52cad77778a113aade6cfe3c5e394649906e9
         $("#ajouter").click(function(){
             valid= true;
             if($("#nom").val()=="")
@@ -314,11 +317,19 @@ include "action1.php";
             }
             if($("#id").val()=="")
             {
+<<<<<<< HEAD
                 $("#id").css("border-color","#FF0000");
                 valid=false;
             }
             else{
                $("#id").css("border-color","#00FF00"); 
+=======
+                $("#type").css("border-color","#FF0000");
+                valid=false;
+            }
+            else{
+               $("#type").css("border-color","#00FF00"); 
+>>>>>>> feb52cad77778a113aade6cfe3c5e394649906e9
             }
                 
         return valid;
