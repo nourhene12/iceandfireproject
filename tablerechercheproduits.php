@@ -1,12 +1,12 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Mehdi Nourhene
+ * User: Maalej Safa
  * Date: 24/03/2019
- * Time: 10:18
+ * Time: 11:18
  */
 include_once "action.php";
-include_once "../Config.php";
+include_once "../../Config.php";
 
 ?>
 <!doctype html>
@@ -40,7 +40,7 @@ include_once "../Config.php";
 
 </head>
 <body>
-    <!-- Left Panel -->
+     <!-- Left Panel -->
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
@@ -53,19 +53,23 @@ include_once "../Config.php";
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-check"></i>GESTION LIVRAISONS & LIVREURS</a>
                                               <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-envelope"></i><a href="index1.php">LIVREURS</a></li>
-                             <li><i class="menu-icon fa fa-envelope"></i><a href="index2.php">LIVRAISON</a></li>
                         </ul>
                         
                            
                         
                     </li>
-                      <li class="menu-title">Control</li><!-- /.menu-title -->
+					
+                        
+                           
+                        
+                    </li>
+                      <li class="menu-title">RECHERCHER</li><!-- /.menu-title -->
                     <li class="menu-item-has-children active dropdown">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-circle-o"></i>Tables</a>
                       <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-check-quare"></i><a href="table costum.php">GERER LIVRAISON</a></li>
-                            <li><i class="menu-icon fa fa-check-quare"></i><a href="table costum.php">GERER LIVREURS</a></li>
-<li><i class="menu-icon fa fa-search"></i><a href="tablerechercheproduits.php">Table recherche produits</a></li>                       </ul>
+<li><i class="menu-icon fa fa-search"></i><a href="tablerechercheproduits.php">Table recherche livreur</a></li>                      
+
+</ul>                      
                     </li>
                     
                 </ul>

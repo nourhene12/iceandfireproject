@@ -236,8 +236,8 @@ $listeReservations=$reservC->afficherReservations();
                 <div class="row m-0">
                     <div class="col-sm-4">
                         <div class="page-header float-left">
-                            <div class="page-title" style="    margin-top: 90px;
-">                          <h1>Dashboard</h1>
+                            <div class="page-title" style="    margin-top: 90px;">
+                                                      <h1>Dashboard</h1>
                             </div>
                         </div>
                     </div>

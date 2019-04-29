@@ -286,7 +286,7 @@ if (isset($_POST["valider"])) {
                                                 <label for="reclamation">Votre réclamation : </label>
                                                 <div class="form-field">
 
-                                                    <TEXTAREA class="form-control" placeholder="reclamation" rows=4 cols=40 name="reclamation_message">Entrer bla bla bla </TEXTAREA>
+                                                    <TEXTAREA class="form-control" placeholder="reclamation" rows=4 cols=40 name="reclamation_message" onkeyup="validatetext(this)">Entrer bla bla bla </TEXTAREA>
 
                                                 </div>
                                             </div>

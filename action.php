@@ -1,6 +1,6 @@
 <?php 
 session_start();
- include "../corp/livreurc.php";
+ include "../core/livreurc.php";
  $update=false;
  	$id1="";
     $nom="";
@@ -38,7 +38,7 @@ if(isset($_POST['Modifier'])){
     $nom=$_POST['nom'];
  	$prenom=$_POST['prenom'];
  	$cin=$_POST['cin'];
- 	$cin=$_POST['cin'];
+ 	$numero=$_POST['numero'];
  	$livreur3c=new livreurc;
  	$livreur3c->modifierlivreur1($nom,$prenom,$cin,$numero,$id1);
 $_SESSION['response']="la modification c'est bien effectué!";

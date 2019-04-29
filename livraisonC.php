@@ -1,5 +1,5 @@
 <?php
-include_once "../../config.php";
+include_once "../Config.php";
 
 class LivraisonC 
 {
@@ -47,7 +47,7 @@ class LivraisonC
 	public static function get_livraison()
 	{
 		  $list=[];
-        $db = config::getConnexion(); //appel fonction static sans new
+        $db = config::connect(); //appel fonction static sans new
         $req = $db->query("SELECT u.id,com.idCmd FROM commande com, user u WHERE idCmd=(SELECT MAX(idCmd) FROM commande) and com.idclient=u.id ");
 
     foreach ($req->fetchAll() as $liv)

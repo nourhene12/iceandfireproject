@@ -1,5 +1,5 @@
 <?php 
-include("$_SERVER[DOCUMENT_ROOT]/Front/core/blog.php");
+include("../core/blog.php");
 
 $posts = getPublishedPosts();
  ?>
@@ -146,9 +146,11 @@ $posts = getPublishedPosts();
 	</div>
 
 	<!-- jQuery -->
+
 	<script src="js/jquery.min.js"></script>
 	<!-- jQuery Easing -->
 	<script src="js/jquery.easing.1.3.js"></script>
+	
 	<!-- Bootstrap -->
 	<script src="js/bootstrap.min.js"></script>
 	<!-- Waypoints -->
@@ -164,6 +166,7 @@ $posts = getPublishedPosts();
 	<script src="js/jquery.flexslider-min.js"></script>
 	<!-- Date Picker -->
 	<script src="js/bootstrap-datepicker.js"></script>
+
 
 	<!-- Main JS (Do not remove) -->
 	<script src="js/main.js"></script>

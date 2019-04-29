@@ -73,32 +73,42 @@ include "action.php";
 
 <body>
 
-   <!-- Left Panel -->
+ <!-- Left Panel -->
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="index.html"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
+                        <a href="index.html"><i class="menu-icon fa fa-laptop"></i>GERER LIVREURS </a>
                     </li>
                     
                     <li class="menu-item-has-children dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-check"></i>GESTION LIVRAISONS & LIVREURS</a>
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-check"></i>GESTION LIVREURS</a>
                                               <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-envelope"></i><a href="index1.php">LIVREURS</a></li>
-                             <li><i class="menu-icon fa fa-envelope"></i><a href="index2.php">LIVRAISON</a></li>
                         </ul>
                         
                            
                         
                     </li>
-                      <li class="menu-title">Control</li><!-- /.menu-title -->
+					<li class="active">
+                        <a href="index.html"><i class="menu-icon fa fa-laptop"></i>GERER LES OFFRES </a>
+                    </li>
+					<li class="menu-item-has-children dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-check"></i>GESTION OFFRES</a>
+                                              <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-envelope"></i><a href="index2.php">OFFRES </a></li>
+                        </ul>
+                        
+                           
+                        
+                    </li>
+                      <li class="menu-title">RECHERCHER</li><!-- /.menu-title -->
                     <li class="menu-item-has-children active dropdown">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-circle-o"></i>Tables</a>
                       <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-check-quare"></i><a href="table costum.php">GERER LIVRAISON</a></li>
-                            <li><i class="menu-icon fa fa-check-quare"></i><a href="table costum.php">GERER LIVREURS</a></li>
-<li><i class="menu-icon fa fa-search"></i><a href="tablerechercheproduits.php">Table recherche produits</a></li>                       </ul>
+<li><i class="menu-icon fa fa-search"></i><a href="tablerechercheproduits.php">Table recherche livreur</a></li>                      
+<li><i class="menu-icon fa fa-search"></i><a href="tablerechercheoffre.php">Table recherche offre</a></li>                      </ul>
                     </li>
                     
                 </ul>
@@ -219,7 +229,7 @@ include "action.php";
                     <div class="col-sm-4">
                         <div class="page-header float-left">
                             <div class="page-title">
-                                <h1>Dashboard</h1>
+                                <h1>GESTION DES LIVREURS</h1>
                             </div>
                         </div>
                     </div>
@@ -227,7 +237,6 @@ include "action.php";
                         <div class="page-header float-right">
                             <div class="page-title">
                                 <ol class="breadcrumb text-right">
-                                    <li><a href="#">Dashboard</a></li>
                                     <li><a href="#">GERER LES LIVREURS</a></li>
                                     <li class="active">LIVREURS</li>
                                 </ol>
@@ -370,8 +379,11 @@ include "action.php";
 $listelivreur=$livreurc1->afficherlivreur();
 
       ?>
+      <div id="printDiv"> </div>
+                                 <button id="doPrint">Print</button>
             <h3 class="text-center text-info">Vos informations</h3>
             <div class="table-responsive" id="table-data">
+            
             <table class="table  table-hover" >
     <thead>
       <tr>
@@ -625,6 +637,15 @@ $listelivreur=$livreurc1->afficherlivreur();
             });
             // Bar Chart #flotBarChart End
         });
+    </script>
+    <script>
+        document.getElementById("doPrint").addEventListener("click", function() {
+     var printContents = document.getElementById('printDiv').innerHTML;
+     var originalContents = document.body.innerHTML;
+     document.body.innerHTML = printContents;
+     window.print();
+     document.body.innerHTML = originalContents;
+});
     </script>
 </body>
 </html>

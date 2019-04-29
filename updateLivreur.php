@@ -1,17 +1,16 @@
 <?php
 ob_start();
-include '../entities/liv.php';
+include '../core/livraison.php';
+
 /**
  *  Affich Doc
  */
-$id=$_GET['p'];
-echo $id;
 
-$livraison=new livraison();
-$res=$livraison->selectLivraison($id);
-foreach($res as $row) {
+//$livraison=new livraison();
+//$res=$livraison->selectLivraison($id);
+//foreach($res as $row) {
 
-}
+
 /*
  * Recupération des données soumis par l'utilsateur
  */

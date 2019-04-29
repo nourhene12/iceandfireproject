@@ -17,16 +17,16 @@ foreach($res as $row) {
  */
 if(isset($_POST['modifier'])){
     if(isset($_POST['modifier'])){
-    $nouveau_client = new Client();
+    $nouveau_client = new client();
     $nouveau_client->setNom($_POST['Nom']);
     $nouveau_client->setPrenom($_POST['Prenom']);
     $nouveau_client->setCin($_POST['CIN']);
     $nouveau_client->setTel($_POST['Tel']);
     $nouveau_client->setmail($_POST['mail']);
     $nouveau_client->setPwd($_POST['PWD']);
-    $nouveau_client->setPhoto($_POST['Photo']);
     $nouveau_client->updateClient($nouveau_client,$ID);
     }
+    
 }
 ?>
 
@@ -98,8 +98,8 @@ if(isset($_POST['modifier'])){
                     <div class="col-md-12 text-center">
                         <ul>
                               <li><a href="index.php">Acceuil</a></li>
-                            <li class="active"><a href="client.php">S'inscrire</a></li>
-
+                            
+                            <li class="active"><a href="client.php"></a></li>
                             
                             
                     </div>
@@ -132,8 +132,7 @@ if(isset($_POST['modifier'])){
                                 <div class="slider-text-inner text-center">
                                     <div class="desc">
                                         <span class="icon"><i class="flaticon-cutlery"></i></span>
-                                        <h1>INSCRIPTION </h1>
-                                        <p><span><a href="#">Acceuil</a></span> <span>S'inscrire</span></p>
+                                        
                                         <div class="desc2"></div>
                                     </div>
                                 </div>
@@ -145,65 +144,21 @@ if(isset($_POST['modifier'])){
             </div>
         </aside>
 
-        <div class="colorlib-intro">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3 col-sm-6 text-center">
-                        <div class="intro animate-box">
-                            <span class="icon">
-                                <i class="icon-map4"></i>
-                            </span>
-                            <h2>Adresse</h2>
-                            <p>La corniche ,Bizerte (à côté du café Maalouf)</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 text-center">
-                        <div class="intro animate-box">
-                            <span class="icon">
-                                <i class="icon-clock4"></i>
-                            </span>
-                            <h2>Ouverte</h2>
-                            <p>Lundi - Dimanche</p>
-                            <span>14am - 00pm</span>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 text-center">
-                        <div class="intro animate-box">
-                            <span class="icon">
-                                <i class="icon-mobile2"></i>
-                            </span>
-                            <h2>Téléphone</h2>
-                            <p>+216 31 556 365</p>
-                            <p>+216 22 234 567</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 text-center">
-                        <div class="intro animate-box">
-                            <span class="icon">
-                                <i class="icon-envelope"></i>
-                            </span>
-                            <h2>Email</h2>
-                            <p><a href="#">info@domain.com</a><br><a href="#">iceandfire@email.com</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
 
         <div class="colorlib-reservation reservation-page">
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3 text-center animate-box intro-heading">
-                        <h2>Passer La Livraison </h2>
-                        <p>Ne Vous Deplacer Plus , C'est La Nourriture Qui Se Deplace Pour Vous.</p>
+                        
                     </div>
                 </div>
                 <div class="colorlib-reservation reservation-page">
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3 text-center animate-box intro-heading">
-                        <h2>INSCRIPTION</h2>
-                        <p>JK</p>
+                        <h2>S'inscrire</h2>
+                       
                     </div>
                 </div>
                 <div class="row">
@@ -216,15 +171,15 @@ if(isset($_POST['modifier'])){
                                             <div class="form-group">
                                                 <label for="Nom">Nom</label>
                                                 <div class="form-field">
-                                                <input type="text" class="form-control" placeholder="name" name="Nom" onkeyup="validatetext(this)">
+                                                <input type="varchar" class="form-control" placeholder="Nom" name="Nom" >
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6 animate-box">
                                             <div class="form-group">
-                                                <label for="Prenom">prenom</label>
+                                                <label for="Prenom">Prenom</label>
                                                 <div class="form-field">
-                                                    <input type="text" class="form-control" placeholder="prenom" name ="Prenom" onchange="validatetext(this)">
+                                                    <input type="varchar" class="form-control" placeholder="Prenom" name ="Prenom" >
                                                     <div class="status2" id="status2" style="color: red; margin-left: 20px"></div>
                                                 </div>
                                             </div>
@@ -233,16 +188,17 @@ if(isset($_POST['modifier'])){
                                             <div class="form-group">
                                                 <label for="CIN">CIN</label>
                                                 <div class="form-field">
-                                                    <input type="text" class="form-control" placeholder="adresse" name="CIN"onkeyup="validatephone(this)">
+                                                    <input type="number" class="form-control" placeholder="CIN" name ="CIN" >
+                                                    <div class="status2" id="status2" style="color: red; margin-left: 20px"></div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6 animate-box">
                                             <div class="form-group">
-                                                <label for="Tel">TEl</label>
+                                                <label for="Tel">Tel</label>
                                                 <div class="form-field">
-                                                    <input type="text" class="form-control" placeholder="ville" name="Tel"onkeyup="validatephone(this)">
-                        
+                                                    <input type="number" class="form-control" placeholder="Tel" name ="Tel" >
+                                                    <div class="status2" id="status2" style="color: red; margin-left: 20px"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -250,34 +206,25 @@ if(isset($_POST['modifier'])){
                                             <div class="form-group">
                                                 <label for="mail">mail</label>
                                                 <div class="form-field">
-                                                    <input type="text" class="form-control" placeholder="mail" name="mail"onkeyup="validatephone(this)">
-                        
+                                                    <input type="text" class="form-control" placeholder="mail" name ="mail" >
+                                                    <div class="status2" id="status2" style="color: red; margin-left: 20px"></div>
                                                 </div>
                                             </div>
                                         </div>
-										<div class="col-md-6 animate-box">
+                                        <div class="col-md-6 animate-box">
                                             <div class="form-group">
                                                 <label for="PWD">PWD</label>
                                                 <div class="form-field">
-                                                    <input type="password" class="form-control" placeholder="mdp" name="PWD"onkeyup="validatephone(this)">
-                        
+                                                    <input type="text" class="form-control" placeholder="PWD" name ="PWD" >
+                                                    <div class="status2" id="status2" style="color: red; margin-left: 20px"></div>
                                                 </div>
                                             </div>
                                         </div>
-										     <div class="col-md-6 animate-box">
-                                            <div class="form-group">
-                                                <label for="Photo">Photo</label>
-                                                <div class="form-field">
-                                                    <input type="text" class="form-control" placeholder="Photo" name="Photo"onkeyup="validatephone(this)">
-                        
-                                                </div>
-                                            </div>
-                                        </div>
-                                       
+                                        
                                         <div class="col-md-12 animate-box">
                                             <div class="row">
                                                 <div class="col-md-4 col-md-offset-4">
-                                                    <input type="submit" name="valider" id="submit" value="S'inscrire" class="btn btn-primary btn-block" >
+                                                    <input type="submit" name="modifier"  value="Modifier" class="btn btn-primary btn-block" >
                                                 </div>
                                             </div>
                                         </div>
@@ -296,7 +243,7 @@ if(isset($_POST['modifier'])){
                     <div class="row">
                         <div class="col-md-3 col-pb-sm">
                             <h2>Haythem kharbech</h2>
-                            <p>je suis le fondateur de ICE&FIRE , soyez le bienvenue</p>
+                            <p>je suis le fondateur de ICE&FIRE , soyez le bienvenu</p>
                             <p class="colorlib-social-icons">
                                 <a href="#"><i class="icon-facebook4"></i></a>
                                 <a href="#"><i class="icon-twitter3"></i></a>

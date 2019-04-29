@@ -218,7 +218,7 @@ $_SESSION['user'] = [
                                             <div class="form-group">
                                                 <label for="name">Nom</label>
                                                 <div class="form-field">
-                                                    <input type="text" class="form-control" placeholder="name" name="name">
+                                                    <input type="text" class="form-control" placeholder="name" name="name" onkeyup="validatetext(this)">
                                                 </div>
                                             </div>
                                         </div>
@@ -239,7 +239,7 @@ $_SESSION['user'] = [
                                                 <label for="reclamation">Zone de texte </label>
                                                 <div class="form-field">
 
-                                                    <TEXTAREA class="form-control" placeholder="reclamation" rows=4 cols=40 name="temoignage_message" >Entrer bla bla bla </TEXTAREA>
+                                                    <TEXTAREA class="form-control" placeholder="votre avis" rows=4 cols=40 name="temoignage_message" onkeyup="validatetext(this)">Entrer bla bla bla </TEXTAREA>
                                                 </div>
                                             </div>
                                         </div>
@@ -416,6 +416,39 @@ $_SESSION['user'] = [
         </footer>
     
     </div>
+    <script >
+           function validatephone(phone)
+        {
+            var maintainplus = '';
+            var numval = phone.value
+            if ( numval.charAt(0)=='+' )
+            {
+                var maintainplus = '';
+            }
+            curphonevar = numval.replace(/[\\A-Za-z!"£$%^&\,*+_={};:'@#~,.Š\/<>?|`¬éèêàâîïçÉÈÊÀÂÎÏÇ"§\-()\]\[]/g,'');
+            phone.value = maintainplus + curphonevar;
+            var maintainplus = '';
+       
+
+
+         phone.focus;
+        }
+        function validatetext(txt) {
+            txt.value = txt.value.replace(/[^a-zA-Z-éèêàâîïçÉÈÊÀÂÎÏÇ'\n\r.]+/g, '');
+        }
+        function email_validate(email)
+        {
+            var regMail = /^([_a-zA-Z0-9-]+)(\.[_a-zA-Z0-9-]+)*@([a-zA-Z0-9-]+\.)+([a-zA-Z]{2,3})$/;
+
+            if(regMail.test(email) == false)
+            {
+                document.getElementById("status2").innerHTML    = "<span class='warning'>Adresse mail non valide.</span>";
+            }else {
+                document.getElementById("status2").innerHTML    = "";
+            }
+        }
+    
+    </script>
 
     <!-- jQuery -->
     <script src="js/jquery.min.js"></script>
