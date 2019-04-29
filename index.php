@@ -73,8 +73,10 @@
 					<div class="col-md-12 text-center">
 						<ul>
 							<li class="active"><a href="index.php">Acceuil</a></li>
-                            <li><a href="client.php">S'inscrire</a></li>
-                            <li><a href="livraison.php">livraison</a></li>
+						    <li><a href="checkout.php">Panier</a></li>
+						    <li><a href="produits.php">Produits</a></li>
+						    <li><a href="l1.php">offres</a></li>
+						    <li><a href="maps/maps-gmap.html">Ou Nous Trouver</a></li>
 						                                                       
 					</div>
 				</div>
@@ -95,9 +97,7 @@
 				</div>
 			</div>
 		</header>
-
-
-							   		<aside id="colorlib-hero">
+		<aside id="colorlib-hero">
 			<div class="flexslider">
 				<ul class="slides">
 			   	<li style="background-image: url(images/img_bg_4.jpeg);">
@@ -111,7 +111,7 @@
 					   					<h1> Les crêpes les plus délicieuses</h1>
 					   					<p>Soyez le bienvenue chez ICE & FIRE </p>
 					   				       <p>    On vous offre la meilleur qualité .</p>
-					   					<p><a href="#" class="btn btn-primary btn-lg btn-learn">Suivez-nous</a></p>
+					   					<p><a href="l1.php" class="btn btn-primary btn-lg btn-learn">Decouvrir Nos Nouveautés</a></p>
 					   					<div class="desc2"></div>
 				   					</div>
 				   				</div>
