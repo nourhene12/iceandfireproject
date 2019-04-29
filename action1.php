@@ -1,6 +1,6 @@
 <?php 
 session_start();
- include "../corp/catégoriesc.php";
+ include "../corp/categoriesc.php";
  $update=false;
  	$id1="";
   $id="";
@@ -8,7 +8,7 @@ session_start();
  if(isset($_POST['ajouter'])){
  	$name=$_POST['name'];
   $id=$_POST['id'];
- 	$catégories1=new catégories($id,$name);
+ 	$catégories1=new categories($id,$name);
  	$catégories1c=new categoriec;
  	$catégories1c->ajoutercatégories($catégories1);
 	header('location:index2.php');
@@ -30,7 +30,7 @@ if(isset($_POST['Modifier'])){
   $id=$_POST['id'];
     $id1=$_POST['id1'];	
     $name=$_POST['name'];
-    $catégories1=new catégories($id,$name);
+    $catégories1=new categories($id,$name);
  	$catégories3c=new categoriec;
  	$catégories3c->modifiercatégories1($catégories1,$_POST['id1']);
 $_SESSION['response']="la modification c'est bien effectué!";

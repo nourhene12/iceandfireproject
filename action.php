@@ -1,46 +1,66 @@
 <?php 
 session_start();
- include "../core/livreurc.php";
+ include "../corp/produitc.php";
  $update=false;
  	$id1="";
-    $nom="";
-    $prenom="";
-    $cin="";
-    $numero="";
+    $name="";
+    $prix="";
+    $type="";
+    $photo="";
+    if(isset($_POST['submit'])){
+  header('Location: index.html');
+}
  if(isset($_POST['ajouter'])){
- 	$nom=$_POST['nom'];
- 	$prenom=$_POST['prenom'];
- 	$cin=$_POST['cin'];
- 	$numero=$_POST['numero'];
- 	$livreur1=new livreur($nom,$prenom,$cin,$numero);
- 	$livreur1c=new livreurc;
- 	$livreur1c->ajouterlivreur($livreur1);
+
+ 	$name=$_POST['name'];
+ 	$type=$_POST['type'];
+ 	$prix=$_POST['prix'];
+ 	$photo=$_FILES['image']['name'];
+ 	$upload="uploads/".$photo;
+ 	$produits1=new produits($name,$type,$prix,$upload);
+ 	$produits1c=new produitc;
+  $produits1c->sendmessage();
+ 	$produits1c->ajouterproduits($produits1);
+  
+	move_uploaded_file($_FILES['image']['tmp_name'],$upload);
 	header('location:index1.php');
+  
 	$_SESSION['response']="l'ajout c'est bien effectué!";
 	$_SESSION['res_type']="success";
  }
- $livreur2c=new livreurc;
- 	$livreur2c->supprimerlivreur();
+ $produits2c=new produitc;
+ 	$produits2c->supprimerproduits();
  if(isset($_GET['edit'])){
 
  	$id=$_GET['edit'];
- 	$livreur0c=new livreurc;
- 	$row1=$livreur0c->modifierlivreur($id);
+ 	$produits0c=new produitc;
+ 	$row1=$produits0c->modifierproduits($id);
  	$id1=$row1['id'];
-    $nom=$row1['nom'];
-    $prenom=$row1['prenom'];
-    $cin=$row1['cin'];
-    $numero=$row1['numero'];
+    $name=$row1['nom'];
+    $type=$row1['type'];
+    $prix=$row1['prix'];
+    $photo=$row1['photo'];
     $update=true;
 }
 if(isset($_POST['Modifier'])){
     $id1=$_POST['id'];	
-    $nom=$_POST['nom'];
- 	$prenom=$_POST['prenom'];
- 	$cin=$_POST['cin'];
- 	$numero=$_POST['numero'];
- 	$livreur3c=new livreurc;
- 	$livreur3c->modifierlivreur1($nom,$prenom,$cin,$numero,$id1);
+    $name=$_POST['name'];
+ 	$type=$_POST['type'];
+ 	$prix=$_POST['prix'];
+ 	$oldimage=$_POST['oldimage'];
+ 	$newimage=$_FILES['image']['name'];
+ 	if(isset($_FILES['image']['name'])&&($_FILES['image']['name']!=""))
+ 	{
+ 	$newimage="uploads/".$_FILES['image']['name'];	
+ 	unlink($oldimage);
+ 	move_uploaded_file($_FILES['image']['tmp_name'], $newimage);
+
+ 	}
+ 	else{
+ 		$newimage=$oldimage;
+ 	}
+ 	$produits3c=new produitc;
+ 	$produits3c->modifierproduits1($name,$type,$prix,$newimage,$id1);
 $_SESSION['response']="la modification c'est bien effectué!";
   $_SESSION['res_type']="primary";
   header('location:index1.php');
@@ -49,13 +69,13 @@ $_SESSION['response']="la modification c'est bien effectué!";
  if(isset($_GET['details']))
  {
    $id=$_GET['details'];
-    $livreur=new livreurc;
-  $row=$livreur0c->detailslivreur($id);
+    $produits0c=new produitc;
+  $row=$produits0c->detailsproduits($id);
  	$vid=$row['id'];
- 	$vnom=$row['nom'];
- 	$vprenom=$row['prenom'];
- 	$vcin=$row['cin'];
- 	$vnumero=$row['numero'];
+ 	$vname=$row['nom'];
+ 	$vtype=$row['type'];
+ 	$vprix=$row['prix'];
+ 	$vphoto=$row['photo'];
  }
 
 ?>
