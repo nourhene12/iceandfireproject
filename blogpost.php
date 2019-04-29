@@ -189,7 +189,7 @@ $posts = getPublishedPosts();
 					<div class="col-md-4">
 						<article class="article-entry">
 
-							<a href="blog.html" class="blog-img" style="background-image: url(<?php echo"./images/".$row['image']; ?>);"></a>
+							<a href="blog.html" class="blog-img" style="background-image: url(<?php echo"./images/postcontent/".$row['image']; ?>);"></a>
 							<div class="desc">
 								<p class="meta"><span class="day"><?php echo date("d",strtotime($row['created_at'])); ?></span><span class="month"><?php echo date("m",strtotime($row['created_at'])); ?></span></p>
 								<p class="admin"><span>Posted by:</span> <span><?php echo $row['user_id'] ?></span></p>
@@ -197,6 +197,7 @@ $posts = getPublishedPosts();
 								<p><?php echo $row['description'] ?></p>
 							</div>
 						</article>
+						<button id="pdfbtn" name="pdfbtn">PDF</button>
 					</div>
 				       <?php }
 				     ?>
@@ -282,6 +283,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="js/jquery.min.js"></script>
 	<!-- jQuery Easing -->
 	<script src="js/jquery.easing.1.3.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
 	<!-- Bootstrap -->
 	<script src="js/bootstrap.min.js"></script>
 	<!-- Waypoints -->
@@ -297,6 +299,17 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="js/jquery.flexslider-min.js"></script>
 	<!-- Date Picker -->
 	<script src="js/bootstrap-datepicker.js"></script>
+		<script type="text/javascript">
+		('#pdfbtn').onclick( function(){
+		var doc = new jsPDF();
+
+$('#cmd').click(function () {   
+    doc.fromHTML($('#content').html(), 15, 15, {
+        'width': 170,
+            'elementHandlers': specialElementHandlers
+    });
+    doc.save('sample-file.pdf');
+}); });</script>
 
 	<!-- Main JS (Do not remove) -->
 	<script src="js/main.js"></script>
